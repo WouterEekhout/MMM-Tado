@@ -1,0 +1,42 @@
+.tado-home {
+    text-align: left;
+}
+
+.tado-table {
+
+}
+
+.tado-table-name {
+    vertical-align:top;
+    padding-right: 10px;
+}
+
+.tado-table-data {
+
+}
+
+.tado-table-data i, .tado-table-name i {
+    padding-right: 5px;
+}
+
+
+@font-face {
+    font-family:tadoicons;
+    src:url("font/tadoicons.eot");
+    src:url("font/tadoicons.eot?#iefix") format("embedded-opentype"),url("font/tadoicons.woff") format("woff"), url("font/tadoicons.ttf") format("truetype"),url("font/tadoicons.svg#tadoicons") format("svg");
+    font-weight:400;
+    font-style:normal;
+}
+
+.tado-icon-tado_logo:before {
+    content: "\e002";
+}
+
+[class^="tado-icon-"]:before, [class*=" tado-icon-"]:before {
+    font-family: "tadoicons";
+    font-style: normal;
+    speak: none;
+    font-weight: normal;
+    /* line-height: 1; */
+    -webkit-font-smoothing: antialiased;
+}
