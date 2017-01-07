@@ -1,10 +1,6 @@
 # MagicMirror Module: MMM-Tado
 A MagicMirror Module for your Tado Smart Thermostat. 
 
-## Example
-
-![](.github/example.png)
-
 ### The module displays the following information:
 
 * A symbol to show if the heater is currently active.
