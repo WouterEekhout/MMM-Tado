@@ -43,7 +43,6 @@ Module.register("MMM-Tado",{
         var self = this;
 
         setTimeout(function(){
-            self.updateTadoStates();
             self.updateDom();
         }, 3000); //wait 3 seconds
 
@@ -194,9 +193,9 @@ Module.register("MMM-Tado",{
     updateTadoStates: function() {
         var self = this;
         _.forEach(this.tadoHomes, function(home){
-           _.forEach(home.zones, function(zone){
-               self.tadoClient.state(home.id, zone.id, this.loadTadoZoneState, zone, this);
-           });
+            _.forEach(home.zones, function(zone){
+                self.tadoClient.state(home.id, zone.id, self.loadTadoZoneState, zone, self);
+            });
         });
     },
 
