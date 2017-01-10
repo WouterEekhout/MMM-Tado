@@ -49,7 +49,9 @@ Module.register("MMM-Tado",{
 
         setInterval(function() {
             self.updateTadoStates();
-            self.updateDom();
+            setTimeout(function(){
+                self.updateDom();
+            }, 3000); //wait 3 seconds
         }, this.config.updateInterval);
     },
 
