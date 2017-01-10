@@ -77,6 +77,10 @@ Module.register("MMM-Tado",{
                 var rowWrapper = document.createElement("tr");
 
                 if(zone.type == "HOT_WATER"){
+                    if(zone.state.setting.power == "OFF") {
+                        return; //ignore the HOT WATER control has been turned off
+                    }
+
                     var firstTableDataWrapper = document.createElement("td");
                     firstTableDataWrapper.className = "tado-table-name";
 
