@@ -4,7 +4,8 @@ A MagicMirror Module for your Tado Smart Thermostat.
 ### The module displays the following information:
 
 * A symbol to show if the heater is currently active.
-* The current temperature.
+* The current temperature
+* The target temperature
 * The humidity
 * The hot water temperature.
 

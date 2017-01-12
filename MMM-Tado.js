@@ -117,6 +117,7 @@ Module.register("MMM-Tado",{
                     var secondTableDateWrapper = document.createElement("td");
                     secondTableDateWrapper.className = "tado-table-data";
 
+                    //current temperature
                     var temperatureWrapper = document.createElement("span");
                     temperatureWrapper.className = "bright";
                     var temperatureIconWrapper = document.createElement("i");
@@ -131,6 +132,16 @@ Module.register("MMM-Tado",{
                         temperatureWrapper.appendChild(heatingWrapper);
                     }
                     secondTableDateWrapper.appendChild(temperatureWrapper);
+
+                    //target temperature
+                    var temperatureTargetWrapper = document.createElement("span");
+                    temperatureTargetWrapper.className = "xsmall";
+                    var temperatureTargetIconWrapper = document.createElement("i");
+                    temperatureTargetIconWrapper.className = "fa fa-thermometer-full";
+                    temperatureTargetWrapper.appendChild(temperatureTargetIconWrapper);
+                    var temperatureTargetTextWrapper = document.createTextNode(zone.state.setting.temperature.celsius + "°");
+                    temperatureTargetWrapper.appendChild(temperatureTargetTextWrapper);
+                    secondTableDateWrapper.appendChild(temperatureTargetWrapper);
 
                     var breakLine = document.createElement("br");
                     secondTableDateWrapper.appendChild(breakLine);
