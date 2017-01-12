@@ -78,13 +78,6 @@ Module.register("MMM-Tado",{
                 var rowWrapper = document.createElement("tr");
 
                 if(zone.type == "HOT_WATER"){
-                    if(zone.state.setting.power == "OFF") {
-                        return; //ignore the HOT WATER control has been turned off
-                    }
-                    if(zone.state.setting.temperature == null) {
-                        return; //No information about the HOT WATER
-                    }
-
                     var firstTableDataWrapper = document.createElement("td");
                     firstTableDataWrapper.className = "tado-table-name";
 
@@ -100,7 +93,11 @@ Module.register("MMM-Tado",{
                     var temperatureIconWrapper = document.createElement("i");
                     temperatureIconWrapper.className = "fa fa-thermometer-full";
                     temperatureWrapper.appendChild(temperatureIconWrapper);
-                    var temperatureTextWrapper = document.createTextNode(zone.state.setting.temperature.celsius + "°");
+                    if(zone.state.setting.temperature == null) {
+                        var temperatureTextWrapper = document.createTextNode(zone.state.setting.power);
+                    } else {
+                        var temperatureTextWrapper = document.createTextNode(zone.state.setting.temperature.celsius + "°");
+                    }
                     temperatureWrapper.appendChild(temperatureTextWrapper);
                     secondTableDateWrapper.appendChild(temperatureWrapper);
 
