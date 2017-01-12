@@ -7,7 +7,7 @@ A MagicMirror Module for your Tado Smart Thermostat.
 * The current temperature
 * The target temperature
 * The humidity
-* The hot water temperature.
+* The hot water temperature, if not available; the current power state
 
 ### Screenshot
 ![screenshot](https://github.com/WouterEekhout/MMM-Tado/blob/master/img/screenshot.png)
