@@ -9,6 +9,9 @@ A MagicMirror Module for your Tado Smart Thermostat.
 * The humidity
 * The hot water temperature.
 
+### Screenshot
+![screenshot](https://github.com/WouterEekhout/MMM-Tado/blob/master/img/screenshot.png)
+
 ## Installation
 
 In your terminal, go to your MagicMirror's Module folder:
