@@ -1,7 +1,7 @@
 /**
  * Created by Wouter Eekhout on 06/01/2017.
  */
-Module.register("MMM-Tado",{
+Module.register("MMM-Tado", {
     // Default module config.
     defaults: {
         username: '',
@@ -13,7 +13,7 @@ Module.register("MMM-Tado",{
     tadoMe: {},
     tadoHomes: [],
 
-    getScripts: function() {
+    getScripts: function () {
         return [
             'moment.js',
             this.file('js/lib/jquery.min.js'),
@@ -22,19 +22,19 @@ Module.register("MMM-Tado",{
         ]
     },
 
-    getStyles: function() {
+    getStyles: function () {
         return [
             this.file('css/MMM-Tado.css'),
             this.file('css/font-awesome-4.7.0/css/font-awesome.min.css')
         ];
     },
 
-    init: function() {
+    init: function () {
 
     },
 
-    start: function() {
-        if(this.config.username == '' || this.config.password == '') {
+    start: function () {
+        if (this.config.username == '' || this.config.password == '') {
             return;
         }
 
@@ -42,23 +42,23 @@ Module.register("MMM-Tado",{
 
         var self = this;
 
-        setTimeout(function(){
+        setTimeout(function () {
             self.updateDom();
         }, 3000); //wait 3 seconds
 
-        setInterval(function() {
+        setInterval(function () {
             self.updateTadoStates();
-            setTimeout(function(){
+            setTimeout(function () {
                 self.updateDom();
             }, 3000); //wait 3 seconds
         }, this.config.updateInterval);
     },
 
     // Override dom generator.
-    getDom: function() {
+    getDom: function () {
         var wrapper = document.createElement("div");
         wrapper.className = "tado-info";
-        _.forEach(this.tadoHomes, function(home){
+        _.forEach(this.tadoHomes, function (home) {
             var homeWrapper = document.createElement("div");
             homeWrapper.className = "tado-home";
 
@@ -74,10 +74,10 @@ Module.register("MMM-Tado",{
             var tableWrapper = document.createElement("table");
             tableWrapper.className = "tado-table small";
 
-            _.forEach(home.zones, function(zone){
+            _.forEach(home.zones, function (zone) {
                 var rowWrapper = document.createElement("tr");
 
-                if(zone.type == "HOT_WATER"){
+                if (zone.type == "HOT_WATER") {
                     var firstTableDataWrapper = document.createElement("td");
                     firstTableDataWrapper.className = "tado-table-name";
 
@@ -93,10 +93,10 @@ Module.register("MMM-Tado",{
                     var temperatureIconWrapper = document.createElement("i");
                     temperatureIconWrapper.className = "fa fa-thermometer-full";
                     temperatureWrapper.appendChild(temperatureIconWrapper);
-                    if(zone.state.setting.temperature == null) {
+                    if (zone.state.setting.temperature == null) {
                         var temperatureTextWrapper = document.createTextNode(zone.state.setting.power);
                     } else {
-                        if(this.config.units == "metric") {
+                        if (this.config.units == "metric") {
                             var temperatureTextWrapper = document.createTextNode(zone.state.setting.temperature.celsius + "°");
                         } else {
                             var temperatureTextWrapper = document.createTextNode(zone.state.setting.temperature.fahrenheit + "°");
@@ -124,14 +124,13 @@ Module.register("MMM-Tado",{
                     var temperatureIconWrapper = document.createElement("i");
                     temperatureIconWrapper.className = "fa fa-thermometer-full";
                     temperatureWrapper.appendChild(temperatureIconWrapper);
-                    if(this.config.units == "metric") {
+                    if (this.config.units == "metric") {
                         var temperatureTextWrapper = document.createTextNode(zone.state.sensorDataPoints.insideTemperature.celsius + "°");
                     } else {
                         var temperatureTextWrapper = document.createTextNode(zone.state.sensorDataPoints.insideTemperature.fahrenheit + "°");
                     }
-
                     temperatureWrapper.appendChild(temperatureTextWrapper);
-                    if(zone.state.activityDataPoints.heatingPower.percentage > 0) {
+                    if (zone.state.activityDataPoints.heatingPower.percentage > 0) {
                         //The zone is heating
                         var heatingWrapper = document.createElement("i");
                         heatingWrapper.className = "fa fa-fire bright";
@@ -145,10 +144,14 @@ Module.register("MMM-Tado",{
                     var temperatureTargetIconWrapper = document.createElement("i");
                     temperatureTargetIconWrapper.className = "fa fa-thermometer-full";
                     temperatureTargetWrapper.appendChild(temperatureTargetIconWrapper);
-                    if(this.config.units == "metric") {
-                        var temperatureTargetTextWrapper = document.createTextNode(zone.state.setting.temperature.celsius + "°");
+                    if (zone.state.setting.temperature == null) {
+                        var temperatureTargetTextWrapper = document.createTextNode(zone.state.setting.power);
                     } else {
-                        var temperatureTargetTextWrapper = document.createTextNode(zone.state.setting.temperature.fahrenheit + "°");
+                        if (this.config.units == "metric") {
+                            var temperatureTargetTextWrapper = document.createTextNode(zone.state.setting.temperature.celsius + "°");
+                        } else {
+                            var temperatureTargetTextWrapper = document.createTextNode(zone.state.setting.temperature.fahrenheit + "°");
+                        }
                     }
                     temperatureTargetWrapper.appendChild(temperatureTargetTextWrapper);
                     secondTableDateWrapper.appendChild(temperatureTargetWrapper);
@@ -179,14 +182,14 @@ Module.register("MMM-Tado",{
         return wrapper;
     },
 
-    getTadoInfo: function() {
+    getTadoInfo: function () {
         this.tadoClient.me(this.loadTadoMe, this);
     },
 
-    loadTadoMe: function(me, cl) {
+    loadTadoMe: function (me, cl) {
         this.tadoMe = me;
 
-        _.forEach(this.tadoMe.homes, function(home) {
+        _.forEach(this.tadoMe.homes, function (home) {
             var homeInfo = {};
             homeInfo.id = home.id;
             homeInfo.name = home.name;
@@ -197,8 +200,8 @@ Module.register("MMM-Tado",{
         });
     },
 
-    loadTadoZones: function(zones, homeInfo, cl) {
-        _.forEach(zones, function(zone) {
+    loadTadoZones: function (zones, homeInfo, cl) {
+        _.forEach(zones, function (zone) {
             var zoneInfo = {};
             zoneInfo.id = zone.id;
             zoneInfo.name = zone.name;
@@ -210,20 +213,20 @@ Module.register("MMM-Tado",{
         });
     },
 
-    loadTadoZoneState: function(state, zone, cl) {
+    loadTadoZoneState: function (state, zone, cl) {
         zone.state = state;
     },
 
-    updateTadoStates: function() {
+    updateTadoStates: function () {
         var self = this;
-        _.forEach(this.tadoHomes, function(home){
-            _.forEach(home.zones, function(zone){
+        _.forEach(this.tadoHomes, function (home) {
+            _.forEach(home.zones, function (zone) {
                 self.tadoClient.state(home.id, zone.id, self.loadTadoZoneState, zone, self);
             });
         });
     },
 
-    refreshAll: function() {
+    refreshAll: function () {
         this.tadoClient = {};
         this.tadoMe = {};
         this.tadoHomes = [];
