@@ -77,7 +77,7 @@ Module.register("MMM-Tado", {
             _.forEach(home.zones, function (zone) {
                 var rowWrapper = document.createElement("tr");
 
-                if (zone.type == "HOT_WATER") {
+                if (zone.type === "HOT_WATER") {
                     var firstTableDataWrapper = document.createElement("td");
                     firstTableDataWrapper.className = "tado-table-name";
 
@@ -96,7 +96,7 @@ Module.register("MMM-Tado", {
                     if (zone.state.setting.temperature == null) {
                         var temperatureTextWrapper = document.createTextNode(zone.state.setting.power);
                     } else {
-                        if (this.config.units == "metric") {
+                        if (this.config.units === "metric") {
                             var temperatureTextWrapper = document.createTextNode(zone.state.setting.temperature.celsius + "°");
                         } else {
                             var temperatureTextWrapper = document.createTextNode(zone.state.setting.temperature.fahrenheit + "°");
@@ -106,7 +106,8 @@ Module.register("MMM-Tado", {
                     secondTableDateWrapper.appendChild(temperatureWrapper);
 
                     rowWrapper.appendChild(secondTableDateWrapper);
-                } else if (zone.type == "HEATING") {
+                }
+                else if (zone.type === "HEATING") {
                     var firstTableDataWrapper = document.createElement("td");
                     firstTableDataWrapper.className = "tado-table-name";
 
@@ -124,7 +125,7 @@ Module.register("MMM-Tado", {
                     var temperatureIconWrapper = document.createElement("i");
                     temperatureIconWrapper.className = "fa fa-thermometer-full";
                     temperatureWrapper.appendChild(temperatureIconWrapper);
-                    if (this.config.units == "metric") {
+                    if (this.config.units === "metric") {
                         var temperatureTextWrapper = document.createTextNode(zone.state.sensorDataPoints.insideTemperature.celsius + "°");
                     } else {
                         var temperatureTextWrapper = document.createTextNode(zone.state.sensorDataPoints.insideTemperature.fahrenheit + "°");
@@ -135,6 +136,75 @@ Module.register("MMM-Tado", {
                         var heatingWrapper = document.createElement("i");
                         heatingWrapper.className = "fa fa-fire bright";
                         temperatureWrapper.appendChild(heatingWrapper);
+                    }
+                    secondTableDateWrapper.appendChild(temperatureWrapper);
+
+                    //target temperature
+                    var temperatureTargetWrapper = document.createElement("span");
+                    temperatureTargetWrapper.className = "xsmall";
+                    var temperatureTargetIconWrapper = document.createElement("i");
+                    temperatureTargetIconWrapper.className = "fa fa-thermometer-full";
+                    temperatureTargetWrapper.appendChild(temperatureTargetIconWrapper);
+                    if (zone.state.setting.temperature == null) {
+                        var temperatureTargetTextWrapper = document.createTextNode(zone.state.setting.power);
+                    } else {
+                        if (this.config.units == "metric") {
+                            var temperatureTargetTextWrapper = document.createTextNode(zone.state.setting.temperature.celsius + "°");
+                        } else {
+                            var temperatureTargetTextWrapper = document.createTextNode(zone.state.setting.temperature.fahrenheit + "°");
+                        }
+                    }
+                    temperatureTargetWrapper.appendChild(temperatureTargetTextWrapper);
+                    secondTableDateWrapper.appendChild(temperatureTargetWrapper);
+
+                    var breakLine = document.createElement("br");
+                    secondTableDateWrapper.appendChild(breakLine);
+
+                    var humidityWrapper = document.createElement("span");
+                    var humidityIconWrapper = document.createElement("i");
+                    humidityIconWrapper.className = "fa fa-tint";
+                    humidityWrapper.appendChild(humidityIconWrapper);
+                    var humidityTextWrapper = document.createTextNode(zone.state.sensorDataPoints.humidity.percentage + "%");
+                    humidityWrapper.appendChild(humidityTextWrapper);
+                    secondTableDateWrapper.appendChild(humidityWrapper);
+
+                    rowWrapper.appendChild(secondTableDateWrapper);
+                }
+                else if (zone.type === "AIR_CONDITIONING") {
+                    var firstTableDataWrapper = document.createElement("td");
+                    firstTableDataWrapper.className = "tado-table-name";
+
+                    var zoneNameWrapper = document.createElement("span");
+                    zoneNameWrapper.innerText = zone.name;
+                    firstTableDataWrapper.appendChild(zoneNameWrapper);
+                    rowWrapper.appendChild(firstTableDataWrapper);
+
+                    var secondTableDateWrapper = document.createElement("td");
+                    secondTableDateWrapper.className = "tado-table-data";
+
+                    //current temperature
+                    var temperatureWrapper = document.createElement("span");
+                    temperatureWrapper.className = "bright";
+                    var temperatureIconWrapper = document.createElement("i");
+                    temperatureIconWrapper.className = "fa fa-thermometer-full";
+                    temperatureWrapper.appendChild(temperatureIconWrapper);
+                    if (this.config.units === "metric") {
+                        var temperatureTextWrapper = document.createTextNode(zone.state.sensorDataPoints.insideTemperature.celsius + "°");
+                    } else {
+                        var temperatureTextWrapper = document.createTextNode(zone.state.sensorDataPoints.insideTemperature.fahrenheit + "°");
+                    }
+                    temperatureWrapper.appendChild(temperatureTextWrapper);
+                    if (zone.state.setting.mode === "HEAT") {
+                        //The zone is heating
+                        var heatingWrapper = document.createElement("i");
+                        heatingWrapper.className = "fa fa-fire bright";
+                        temperatureWrapper.appendChild(heatingWrapper);
+                    }
+                    else if (zone.state.setting.mode === "COOL") {
+                        //The zone is heating
+                        var heatingWrapper = document.createElement("i");
+                        coolingWrapper.className = "fa fa-snowflake-o bright";
+                        temperatureWrapper.appendChild(coolingWrapper);
                     }
                     secondTableDateWrapper.appendChild(temperatureWrapper);
 
