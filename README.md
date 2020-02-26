@@ -77,7 +77,7 @@ The following properties can be configured:
 </p>
 
 
-## Acknowledgements
+## Credits
 This module is highly inspired by the 
 MMM-Toon module: https://github.com/MichMich/MMM-Toon.
 
