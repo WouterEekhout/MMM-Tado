@@ -1,20 +1,24 @@
 const NodeHelper = require("node_helper");
-const TadoClient = require('tado-client');
+const TadoClient = require("tado-client");
+const logger = require("mocha-logger");
 
 module.exports = NodeHelper.create({
     tadoClient: {},
     tadoMe: {},
     tadoHomes: [],
+    length_zones: undefined,
 
     start: function() {
         this.tadoClient = new TadoClient();
     },
 
-    getData: function() {
+    getData: async function() {
         let self = this;
 
-        this.tadoClient.login(self.config.username, self.config.password).then((success) => {
-            this.tadoClient.me().then((me) => {
+        self.length_zones = undefined;
+
+        self.tadoClient.login(self.config.username, self.config.password).then(() => {
+            self.tadoClient.me().then((me) => {
                 self.tadoMe = me;
 
                 self.tadoMe.homes.forEach(home => {
@@ -25,6 +29,8 @@ module.exports = NodeHelper.create({
 
                     self.tadoHomes.push(homeInfo);
                     self.tadoClient.zones(home.id).then((zones) => {
+                        self.length_zones = zones.length;
+
                         zones.forEach(zone => {
                             let zoneInfo = {};
                             zoneInfo.id = zone.id;
@@ -42,9 +48,36 @@ module.exports = NodeHelper.create({
             });
         });
 
-        setTimeout(function () {
-             self.sendSocketNotification('NEW_DATA', {'tadoMe': self.tadoMe, 'tadoHomes': self.tadoHomes});
-        }, 3000); //wait 3 seconds
+        //Check if every state has been received
+        while (true) {
+            logger.log("MMM-Tado: Checking if all data is present");
+            if (self.length_zones !== undefined) {
+                try {
+                    let received_states = 0;
+                    self.tadoHomes.forEach(home => {
+                        home.zones.forEach(zone => {
+                            if (zone.state !== undefined &&
+                                Object.entries(zone.state).length !== 0) {
+                                received_states++;
+                            }
+                        });
+                    });
+
+                    if (received_states === self.length_zones) {
+                        logger.log("MMM-TADO: All data is present");
+                        self.sendSocketNotification('NEW_DATA', {'tadoMe': self.tadoMe, 'tadoHomes': self.tadoHomes});
+                        break;
+                    }
+                } catch (err) {
+                    //NOP
+                    logger.error("MMM-Tado: Not all data present");
+                }
+            }
+
+            // We don't have all the data yet
+            logger.log("MMM-Tado: Not all data present");
+            await self.sleep(1000);
+        }
     },
 
     socketNotificationReceived: function(notification, payload) {
@@ -66,5 +99,9 @@ module.exports = NodeHelper.create({
                 self.getData();
             }, this.config.updateInterval);
         }
+    },
+
+    sleep: function(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
     }
 });
