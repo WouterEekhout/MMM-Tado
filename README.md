@@ -66,7 +66,9 @@ The following properties can be configured:
 		</tr>
         <tr>
             <td><code>updateInterval</code></td>
-            <td><b>Optional</b></code> - In milliseconds the update interval. Default: <code>300000</code> (5 minutes).</td>
+            <td><b>Optional</b></code> - In milliseconds the update interval. Default: <code>300000</code> 
+            (5 minutes). This value cannot be lower than <code>300000</code>. Otherwise users get a
+             <code>Tado block</code>.</td>
         </tr>
 	</tbody>
 </table>

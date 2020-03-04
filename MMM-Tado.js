@@ -21,6 +21,10 @@ Module.register("MMM-Tado", {
     },
 
     start: function () {
+        if (this.config.updateInterval < this.defaults.updateInterval){
+            this.config.updateInterval = this.defaults.updateInterval;
+        }
+
         this.config.units = self.config.units;
         this.sendSocketNotification('CONFIG', this.config);
     },
