@@ -16,7 +16,6 @@ Module.register("MMM-Tado", {
     getStyles: function () {
         return [
             this.file('css/MMM-Tado.css'),
-            this.file('css/font-awesome-4.7.0/css/font-awesome.min.css')
         ];
     },
 
@@ -63,7 +62,7 @@ Module.register("MMM-Tado", {
 
                     let temperatureWrapper = document.createElement("span");
                     let temperatureIconWrapper = document.createElement("i");
-                    temperatureIconWrapper.className = "fa fa-thermometer-full";
+                    temperatureIconWrapper.className = "fa fa-thermometer-half";
                     temperatureWrapper.appendChild(temperatureIconWrapper);
                     if (zone.state.setting.temperature == null) {
                         var temperatureTextWrapper = document.createTextNode(zone.state.setting.power);
@@ -95,7 +94,7 @@ Module.register("MMM-Tado", {
                     let temperatureWrapper = document.createElement("span");
                     temperatureWrapper.className = "bright";
                     let temperatureIconWrapper = document.createElement("i");
-                    temperatureIconWrapper.className = "fa fa-thermometer-full";
+                    temperatureIconWrapper.className = "fa fa-thermometer-half";
                     temperatureWrapper.appendChild(temperatureIconWrapper);
                     if (this.config.units === "metric") {
                         var temperatureTextWrapper = document.createTextNode(zone.state.sensorDataPoints.insideTemperature.celsius + "°");
@@ -115,7 +114,7 @@ Module.register("MMM-Tado", {
                     let temperatureTargetWrapper = document.createElement("span");
                     temperatureTargetWrapper.className = "xsmall";
                     let temperatureTargetIconWrapper = document.createElement("i");
-                    temperatureTargetIconWrapper.className = "fa fa-thermometer-full";
+                    temperatureTargetIconWrapper.className = "fa fa-thermometer-half";
                     temperatureTargetWrapper.appendChild(temperatureTargetIconWrapper);
                     if (zone.state.setting.temperature == null) {
                         var temperatureTargetTextWrapper = document.createTextNode(zone.state.setting.power);
@@ -158,7 +157,7 @@ Module.register("MMM-Tado", {
                     let temperatureWrapper = document.createElement("span");
                     temperatureWrapper.className = "bright";
                     let temperatureIconWrapper = document.createElement("i");
-                    temperatureIconWrapper.className = "fa fa-thermometer-full";
+                    temperatureIconWrapper.className = "fa fa-thermometer-half";
                     temperatureWrapper.appendChild(temperatureIconWrapper);
                     if (this.config.units === "metric") {
                         var temperatureTextWrapper = document.createTextNode(zone.state.sensorDataPoints.insideTemperature.celsius + "°");
@@ -173,9 +172,9 @@ Module.register("MMM-Tado", {
                         temperatureWrapper.appendChild(heatingWrapper);
                     }
                     else if (zone.state.setting.mode === "COOL") {
-                        //The zone is heating
-                        var heatingWrapper = document.createElement("i");
-                        coolingWrapper.className = "fa fa-snowflake-o bright";
+                        //The zone is cooling
+                        let coolingWrapper = document.createElement("i");
+                        coolingWrapper.className = "fa fa-snowflake bright";
                         temperatureWrapper.appendChild(coolingWrapper);
                     }
                     secondTableDateWrapper.appendChild(temperatureWrapper);
@@ -184,12 +183,12 @@ Module.register("MMM-Tado", {
                     let temperatureTargetWrapper = document.createElement("span");
                     temperatureTargetWrapper.className = "xsmall";
                     let temperatureTargetIconWrapper = document.createElement("i");
-                    temperatureTargetIconWrapper.className = "fa fa-thermometer-full";
+                    temperatureTargetIconWrapper.className = "fa fa-thermometer-half";
                     temperatureTargetWrapper.appendChild(temperatureTargetIconWrapper);
                     if (zone.state.setting.temperature == null) {
                         var temperatureTargetTextWrapper = document.createTextNode(zone.state.setting.power);
                     } else {
-                        if (this.config.units == "metric") {
+                        if (this.config.units === "metric") {
                             var temperatureTargetTextWrapper = document.createTextNode(zone.state.setting.temperature.celsius + "°");
                         } else {
                             var temperatureTargetTextWrapper = document.createTextNode(zone.state.setting.temperature.fahrenheit + "°");
