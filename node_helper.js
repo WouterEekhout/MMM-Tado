@@ -1,5 +1,5 @@
 const NodeHelper = require("node_helper");
-const TadoClient = require("tado-client");
+const TadoClient = require("node-tado-client");
 const logger = require("mocha-logger");
 
 module.exports = NodeHelper.create({
@@ -10,6 +10,7 @@ module.exports = NodeHelper.create({
 
     start: function() {
         this.tadoClient = new TadoClient();
+        x = '';
     },
 
     getData: async function() {
@@ -18,17 +19,21 @@ module.exports = NodeHelper.create({
         self.length_zones = undefined;
 
         self.tadoClient.login(self.config.username, self.config.password).then(() => {
-            self.tadoClient.me().then((me) => {
+            logger.log('Logged in');
+            self.tadoClient.getMe().then((me) => {
+                logger.log('Got me()');
                 self.tadoMe = me;
 
                 self.tadoMe.homes.forEach(home => {
+                    logger.log('Got homes()');
                     let homeInfo = {};
                     homeInfo.id = home.id;
                     homeInfo.name = home.name;
                     homeInfo.zones = [];
 
                     self.tadoHomes.push(homeInfo);
-                    self.tadoClient.zones(home.id).then((zones) => {
+                    self.tadoClient.getZones(home.id).then((zones) => {
+                        logger.log('Got zones()');
                         self.length_zones = zones.length;
 
                         zones.forEach(zone => {
@@ -39,7 +44,7 @@ module.exports = NodeHelper.create({
                             zoneInfo.state = {};
 
                             homeInfo.zones.push(zoneInfo);
-                            self.tadoClient.state(homeInfo.id, zoneInfo.id).then((state) => {
+                            self.tadoClient.getZoneState(homeInfo.id, zoneInfo.id).then((state) => {
                                 zoneInfo.state = state;
                             });
                         });
