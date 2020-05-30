@@ -24,6 +24,11 @@ Clone this repository:
 git clone https://github.com/WouterEekhout/MMM-Tado
 ````
 
+Install NPM dependencies:
+```
+npm install
+```
+
 Configure the module in your `config.js` file.
 
 ## Using the module
@@ -58,15 +63,15 @@ The following properties can be configured:
 	<tbody>
         <tr>
 			<td><code>username</code></td>
-			<td><b>Required</b></code> - Your Tado username.</td>
+			<td><b>Required</b> - Your Tado username.</td>
 		</tr>
         <tr>
 			<td><code>password</code></td>
-			<td><b>Required</b></code> - Your Tado password.</td>
+			<td><b>Required</b> - Your Tado password.</td>
 		</tr>
         <tr>
             <td><code>updateInterval</code></td>
-            <td><b>Optional</b></code> - In milliseconds the update interval. Default: <code>300000</code> 
+            <td><b>Optional</b> - In milliseconds the update interval. Default: <code>300000</code> 
             (5 minutes). This value cannot be lower than <code>300000</code>. Otherwise users get a
              <code>Tado block</code>.</td>
         </tr>
@@ -82,6 +87,3 @@ The following properties can be configured:
 ## Credits
 This module is highly inspired by the 
 MMM-Toon module: https://github.com/MichMich/MMM-Toon.
-
-The Tado client is inspired by:
-node-tado by dVelopment: https://github.com/dVelopment/node-tado
