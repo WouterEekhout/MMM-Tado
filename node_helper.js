@@ -10,7 +10,6 @@ module.exports = NodeHelper.create({
 
     start: function() {
         this.tadoClient = new TadoClient();
-        x = '';
     },
 
     getData: async function() {
@@ -19,13 +18,13 @@ module.exports = NodeHelper.create({
         self.length_zones = undefined;
 
         self.tadoClient.login(self.config.username, self.config.password).then(() => {
-            logger.log('Logged in');
+            logger.log('MMM-Tado: Logged in');
             self.tadoClient.getMe().then((me) => {
-                logger.log('Got me()');
+                logger.log('MMM-Tado: Got me()');
                 self.tadoMe = me;
 
                 self.tadoMe.homes.forEach(home => {
-                    logger.log('Got homes()');
+                    logger.log('MMM-Tado: Got homes()');
                     let homeInfo = {};
                     homeInfo.id = home.id;
                     homeInfo.name = home.name;
@@ -33,7 +32,7 @@ module.exports = NodeHelper.create({
 
                     self.tadoHomes.push(homeInfo);
                     self.tadoClient.getZones(home.id).then((zones) => {
-                        logger.log('Got zones()');
+                        logger.log('MMM-Tado: Got zones()');
                         self.length_zones = zones.length;
 
                         zones.forEach(zone => {
@@ -86,7 +85,7 @@ module.exports = NodeHelper.create({
     },
 
     socketNotificationReceived: function(notification, payload) {
-        if (notification === "CONFIG") {
+        if (notification === "CONFIG") {            
             this.config = payload;
 
             if (this.config.username === '' || this.config.password === '') {

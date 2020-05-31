@@ -7,7 +7,6 @@ Module.register("MMM-Tado", {
         username: '',
         password: '',
         updateInterval: 300000,
-        units: 'metric',
     },
 
     tadoMe: {},
