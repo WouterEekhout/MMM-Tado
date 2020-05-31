@@ -95,4 +95,5 @@ The following properties can be configured:
 ## Credits
 This module is highly inspired by the 
 MMM-Toon module: https://github.com/MichMich/MMM-Toon.
+
 Using the NPM package node-tado-client: https://github.com/mattdavis90/node-tado-client
