@@ -95,7 +95,7 @@ Module.register("MMM-Tado", {
                     let temperatureIconWrapper = document.createElement("i");
                     temperatureIconWrapper.className = "fa fa-thermometer-half";
                     temperatureWrapper.appendChild(temperatureIconWrapper);
-                    if (this.config.units === "metric") {
+                    if (self.config.units === "metric") {
                         var temperatureTextWrapper = document.createTextNode(zone.state.sensorDataPoints.insideTemperature.celsius + "°");
                     } else {
                         var temperatureTextWrapper = document.createTextNode(zone.state.sensorDataPoints.insideTemperature.fahrenheit + "°");
@@ -118,7 +118,7 @@ Module.register("MMM-Tado", {
                     if (zone.state.setting.temperature == null) {
                         var temperatureTargetTextWrapper = document.createTextNode(zone.state.setting.power);
                     } else {
-                        if (this.config.units === "metric") {
+                        if (self.config.units === "metric") {
                             var temperatureTargetTextWrapper = document.createTextNode(zone.state.setting.temperature.celsius + "°");
                         } else {
                             var temperatureTargetTextWrapper = document.createTextNode(zone.state.setting.temperature.fahrenheit + "°");
@@ -158,7 +158,7 @@ Module.register("MMM-Tado", {
                     let temperatureIconWrapper = document.createElement("i");
                     temperatureIconWrapper.className = "fa fa-thermometer-half";
                     temperatureWrapper.appendChild(temperatureIconWrapper);
-                    if (this.config.units === "metric") {
+                    if (self.config.units === "metric") {
                         var temperatureTextWrapper = document.createTextNode(zone.state.sensorDataPoints.insideTemperature.celsius + "°");
                     } else {
                         var temperatureTextWrapper = document.createTextNode(zone.state.sensorDataPoints.insideTemperature.fahrenheit + "°");
@@ -187,7 +187,7 @@ Module.register("MMM-Tado", {
                     if (zone.state.setting.temperature == null) {
                         var temperatureTargetTextWrapper = document.createTextNode(zone.state.setting.power);
                     } else {
-                        if (this.config.units === "metric") {
+                        if (self.config.units === "metric") {
                             var temperatureTargetTextWrapper = document.createTextNode(zone.state.setting.temperature.celsius + "°");
                         } else {
                             var temperatureTargetTextWrapper = document.createTextNode(zone.state.setting.temperature.fahrenheit + "°");
