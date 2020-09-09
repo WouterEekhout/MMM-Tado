@@ -24,8 +24,9 @@ Clone this repository:
 git clone https://github.com/WouterEekhout/MMM-Tado
 ````
 
-Install NPM dependencies:
+Install NPM dependencies from inside the MMM-Tado folder:
 ```
+cd MMM-Tado/
 npm install
 ```
 
